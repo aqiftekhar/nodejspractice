@@ -2,18 +2,23 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.urlencoded({ extended : true }));
+app.use(express.json());
+
 app.use('/',(req, res, next)=>{
-    console.log("This always runs!!");
     next();
 })
 
-app.use('/products',(req,res,next)=>{
-    console.log("in the Products");
-    res.send('<h1>Hello From Producs</h1>');
+app.use('/users',(req,res,next)=>{
+    res.send('<form action="/addUser" method="POST"><input type="text" name="username"/><button type="submit">Add User</button></form>');
+});
+
+app.use('/addUser',(req, res, next)=>{
+    console.log(req.body);
+    res.redirect('/');
 });
 
 app.use('/',(req,res,next)=>{
-    console.log("in the Home");
     res.send('<h1> Hello Express JS </h1>'); 
 });
 
