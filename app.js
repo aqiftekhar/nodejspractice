@@ -12,7 +12,7 @@ app.use('/',(req, res, next)=>{
     next();
 })
 
-app.use(adminRouts);
+app.use('/admin',adminRouts);
 app.use(shopRouters);
 
 app.use((req, res, next)=>{
