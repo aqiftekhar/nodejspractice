@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 
-const adminRouts = require('./routers/admin');
+const admin = require('./routers/admin');
 const shopRouters = require('./routers/shop');
 
 const app = express();
+app.set('view engine', 'pug');
+app.set('views','views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -15,7 +17,7 @@ app.use('/',(req, res, next)=>{
     next();
 })
 
-app.use('/admin',adminRouts);
+app.use('/admin',admin.router);
 app.use(shopRouters);
 
 app.use((req, res, next)=>{

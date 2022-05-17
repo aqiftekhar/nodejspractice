@@ -5,6 +5,8 @@ const root = require('../utils/path');
 
 const router = express.Router();
 
+const products = [];
+
 // /amdin/users => GET
 router.get('/products',(req, res, next)=>{
     res.sendFile(path.join(root, 'views','products.html'));
@@ -12,6 +14,8 @@ router.get('/products',(req, res, next)=>{
 // /admin/users => POST
 router.post('/products',(req, res, next)=>{
     console.log(req.body);
+    products.push({productName: req.body.productName})
     res.redirect('/');
 });
-module.exports = router;
+exports.router = router;
+exports.products = products;
