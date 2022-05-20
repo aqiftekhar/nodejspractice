@@ -9,7 +9,8 @@ const products = [];
 
 // /amdin/users => GET
 router.get('/products',(req, res, next)=>{
-    res.sendFile(path.join(root, 'views','products.html'));
+    //res.sendFile(path.join(root, 'views','products.html'));
+    res.render('products', {pageTitle: 'New Product'});
 });
 // /admin/users => POST
 router.post('/products',(req, res, next)=>{
