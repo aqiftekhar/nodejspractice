@@ -3,26 +3,15 @@ const path = require('path');
 
 const root = require('../utils/path');
 
+const productsController = require('../controllers/Products');
+
 const router = express.Router();
 
-const products = [];
+// const products = [];
 
 // /amdin/users => GET
-router.get('/products',(req, res, next)=>{
+router.get('/products', productsController.getAddProducts);
 
-    res.render('products', {
-        pageTitle: 'New Product', 
-        urlPath: '/admin/products'
-    });
-});
+router.post('/products', productsController.postAddNewProducts);
 
-router.post('/products',(req, res, next)=>{
-
-    products.push({
-        productName: req.body.productName
-    });
-
-    res.redirect('/');
-});
-exports.router = router;
-exports.products = products;
+module.exports = router;

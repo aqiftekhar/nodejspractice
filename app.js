@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
 
-const admin = require('./routers/admin');
+const adminRoutes = require('./routers/admin');
 const shopRouters = require('./routers/shop');
+
+const PageNotFoundController = require('./controllers/PageNotFound');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -17,13 +19,9 @@ app.use('/',(req, res, next)=>{
     next();
 })
 
-app.use('/admin',admin.router);
+app.use('/admin', adminRoutes);
 app.use(shopRouters);
 
-app.use((req, res, next)=>{
-
-    res.status(404).render('404', {pageTitle: '404 | Page Not Found', urlPath: ''});
-    
-});
+app.use(PageNotFoundController.PageNotFound);
 
 app.listen(3000);
