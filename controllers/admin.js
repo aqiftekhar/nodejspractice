@@ -1,11 +1,10 @@
 const Product = require('../models/Product');
-const Products = require('../models/Product');
 
 exports.getAddProducts = (req, res, next)=>{
 
-    res.render('products', {
-        pageTitle: 'New Product', 
-        urlPath: '/admin/products'
+    res.render('admin/add-product', {
+        pageTitle: 'Add New Product', 
+        urlPath: '/admin/add-product'
     });
 };
 
@@ -15,14 +14,12 @@ exports.postAddNewProducts = (req, res, next)=>{
     res.redirect('/');
 }
 
-exports.getProducts = (req,res,next)=>{
+exports.getProducts = (req, res, next) => {
     Product.getAll( products => {
-        res.render('shop', {
+        res.render('admin/products', {
             prod : products, 
-            pageTitle: 'Shop', 
-            urlPath: '/'
+            pageTitle: 'All Products', 
+            urlPath: '/admin/products'
         });
     });
-
 }
-

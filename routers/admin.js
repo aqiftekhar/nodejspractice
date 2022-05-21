@@ -3,15 +3,22 @@ const path = require('path');
 
 const root = require('../utils/path');
 
-const productsController = require('../controllers/Products');
+const adminController = require('../controllers/admin');
 
 const router = express.Router();
 
 // const products = [];
 
-// /amdin/users => GET
-router.get('/products', productsController.getAddProducts);
+// /amdin/add-products => GET
+router.get('/add-product', adminController.getAddProducts);
 
-router.post('/products', productsController.postAddNewProducts);
+// /amdin/products => GET
+router.get('/products', adminController.getProducts);
+
+// /amdin/edit-products => GET
+router.post('/edit-product');
+
+// /amdin/add-products => POST
+router.post('/add-product', adminController.postAddNewProducts);
 
 module.exports = router;
