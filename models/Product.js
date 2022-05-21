@@ -19,8 +19,11 @@ const getProductsFromFile = callback => {
 };
 
 class Product {
-    constructor(productName){
+    constructor(productName, imageUrl, productDescription, productPrice){
         this.productName = productName;
+        this.imageUrl = imageUrl;
+        this.productDescription = productDescription,
+        this.productPrice = productPrice
     }
 
     save = () => {
