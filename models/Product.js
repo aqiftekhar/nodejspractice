@@ -1,4 +1,6 @@
-const products = [];
+const fs = require('fs');
+const path = require('path');
+const root = require('../utils/path');
 
 class Product {
     constructor(productName){
@@ -6,10 +8,36 @@ class Product {
     }
 
     save = () => {
-        products.push(this);
+        const localpath = path.join(
+            root,
+            'data',
+            'products.json'
+        );
+
+        fs.readFile(localpath, (error, content) => {
+            let products = [];
+            if (!error) {
+                products = JSON.parse(content);
+            }
+            products.push(this);
+            fs.writeFile(localpath, JSON.stringify(products), (error)=> {
+                console.log(error);
+            });
+        });
     }
-    static getAll = () => {
-        return products;
+    static getAll = (callback) => {
+        const localpath = path.join(
+            root,
+            'data',
+            'products.json'
+        );
+        fs.readFile(localpath, (error, contnet) => {
+            if (error) {
+                callback([]);
+            }
+             callback(JSON.parse(contnet));
+        })
+        // return products;
     }
 }
 module.exports = Product;

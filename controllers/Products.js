@@ -16,11 +16,13 @@ exports.postAddNewProducts = (req, res, next)=>{
 }
 
 exports.getProducts = (req,res,next)=>{
-    const products = Product.getAll();
-    res.render('shop', {
-        prod : products, 
-        pageTitle: 'Shop', 
-        urlPath: '/'
+    Product.getAll( products => {
+        res.render('shop', {
+            prod : products, 
+            pageTitle: 'Shop', 
+            urlPath: '/'
+        });
     });
+
 }
 
