@@ -9,13 +9,19 @@ const products = [];
 
 // /amdin/users => GET
 router.get('/products',(req, res, next)=>{
-    //res.sendFile(path.join(root, 'views','products.html'));
-    res.render('products', {pageTitle: 'New Product', urlPath: '/admin/producs'});
+
+    res.render('products', {
+        pageTitle: 'New Product', 
+        urlPath: '/admin/products'
+    });
 });
-// /admin/users => POST
+
 router.post('/products',(req, res, next)=>{
-    console.log(req.body);
-    products.push({productName: req.body.productName})
+
+    products.push({
+        productName: req.body.productName
+    });
+
     res.redirect('/');
 });
 exports.router = router;

@@ -21,8 +21,9 @@ app.use('/admin',admin.router);
 app.use(shopRouters);
 
 app.use((req, res, next)=>{
-    //res.sendFile(path.join(__dirname, 'views','404.html'));
-    res.status(404).render('404', {pageTitle: '404 | Page Not Found'});
+
+    res.status(404).render('404', {pageTitle: '404 | Page Not Found', urlPath: ''});
+    
 });
 
 app.listen(3000);
