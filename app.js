@@ -5,7 +5,7 @@ const admin = require('./routers/admin');
 const shopRouters = require('./routers/shop');
 
 const app = express();
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.set('views','views');
 
 app.use(express.static(path.join(__dirname, 'public')));
