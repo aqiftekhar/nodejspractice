@@ -8,6 +8,8 @@ exports.getAddProducts = (req, res, next)=>{
     });
 };
 
+
+
 exports.postAddNewProducts = (req, res, next)=>{
     let productName = req.body.productName;
     let imageUrl = req.body.imageUrl;

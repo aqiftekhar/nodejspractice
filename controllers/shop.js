@@ -10,6 +10,12 @@ exports.getProducts = (req,res,next)=>{
     });
 }
 
+exports.getProductById = (req, res, next) => {
+    const productId = req.params.productId;
+    console.log(productId);
+    res.redirect('/');
+}
+
 exports.getIndex = (req, res, next) => {
     Product.getAll( products => {
         res.render('shop/index', {
@@ -17,6 +23,13 @@ exports.getIndex = (req, res, next) => {
             pageTitle: 'Shop', 
             urlPath: '/'
         });
+    });
+}
+
+exports.getOrders = (req, res, next) => {
+    res.render('shop/orders', {
+        urlPath: '/orders',
+        pageTitle: 'Your Ordes'
     });
 }
 
