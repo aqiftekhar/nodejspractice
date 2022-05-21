@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { xorWith } = require('lodash');
 const path = require('path');
 const root = require('../utils/path');
 
@@ -41,6 +42,13 @@ class Product {
     static getAll = (callback) => {
         getProductsFromFile(callback);
     }
+
+    static findProductById = ((productId, callback) => {
+        getProductsFromFile((prod) => {
+            const product = prod.find(x=>x.id === productId);
+            callback(product);
+        })
+    })
 }
 
 module.exports = Product;
