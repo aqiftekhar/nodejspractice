@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { xorWith } = require('lodash');
 const path = require('path');
 const root = require('../utils/path');
 
