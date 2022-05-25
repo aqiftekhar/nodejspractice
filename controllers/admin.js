@@ -16,13 +16,26 @@ exports.postAddNewProducts = (req, res, next)=>{
     let productDescription = req.body.productDescription;
     let productPrice = req.body.productPrice;
 
-    const product = new Product(productName, imageUrl, productDescription, productPrice);
+    const product = new Product(null, productName, imageUrl, productDescription, productPrice);
     product.save();
     res.redirect('/');
 }
+exports.postEditProducts = (req, res, next) =>{
+    console.log('postEditProducts');
+    console.log(req.body);
+    const productId = req.body.productId;
+    const updatedProductName = req.body.title;
+    const updatedImageUrl = req.body.imageUrl;
+    const updatedDescription = req.body.description;
+    const updatedPrice = req.body.price;
 
+    const updatedProduct = new Product(productId, updatedProductName, updatedImageUrl, updatedDescription, updatedPrice)
+    updatedProduct.save();
+    res.redirect('/admin/products');
+    console.log(productId, ' ', updatedProductName);
+}
 exports.getEditProducts = (req, res, next)=>{
-    console.log('Started getEditProducts');
+    //console.log('Started getEditProducts');
     const editMode  = req.query.edit;
     if (!editMode) {
         //console.log('EditMode = ',editMode);
