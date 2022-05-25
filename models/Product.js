@@ -45,7 +45,18 @@ class Product {
         }
         });
     }
-
+    static deleteById(productId) {
+        getProductsFromFile((products) => {
+            const updatedProducts = products.filter(x=>x.id !== productId);
+            fs.writeFile(localpath, JSON.stringify(updatedProducts), error => {
+                
+                if (!error) {
+                    //delete 
+                }
+                console.log(error);
+            });
+        })    
+    }
     static getAll = (callback) => {
         getProductsFromFile(callback);
     }
