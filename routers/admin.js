@@ -15,10 +15,11 @@ router.get('/add-product', adminController.getAddProducts);
 // /amdin/products => GET
 router.get('/products', adminController.getProducts);
 
-// /amdin/edit-products => GET
-router.post('/edit-product');
-
 // /amdin/add-products => POST
 router.post('/add-product', adminController.postAddNewProducts);
+
+// /amdin/edit-products => GET
+router.get('/edit-product/:productId', adminController.getEditProducts);
+
 
 module.exports = router;
