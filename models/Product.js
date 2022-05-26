@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const root = require('../utils/path');
+const Cart = require('./Cart');
 
 const localpath = path.join(
     root,
@@ -14,6 +15,7 @@ const getProductsFromFile = callback => {
         if (error) {
             return callback([]);
         }
+        // console.log(JSON.parse(contnet));
          callback(JSON.parse(contnet));
     })
 };
@@ -38,8 +40,7 @@ module.exports = class Product {
             });
         } else{
             this.id=Math.random().toString();
-            //console.log(this);
-            products.push(this); //This object is null
+            products.push(this); 
             fs.writeFile(localpath, JSON.stringify(products), (error)=> {
                 console.log(error);
             });
@@ -48,11 +49,12 @@ module.exports = class Product {
     }
     static deleteById(productId) {
         getProductsFromFile((products) => {
+            const product = products.filter(prod=>prod.id == productId);
             const updatedProducts = products.filter(x=>x.id !== productId);
             fs.writeFile(localpath, JSON.stringify(updatedProducts), error => {
                 
                 if (!error) {
-                    //delete 
+                    Cart.deleteProduct(productId, product.productPrice);
                 }
                 console.log(error);
             });
@@ -63,8 +65,9 @@ module.exports = class Product {
     }
 
     static findProductById = ((productId, callback) => {
-        getProductsFromFile((prod) => {
-            const product = prod.find(x=>x.id === productId);
+        getProductsFromFile((products) => {
+            const product =  products.find(x=>parseFloat(x.id)===parseFloat(productId))
+            //console.log('\nProductId : ', productId, 'Product : ', product );
             callback(product);
         })
     })
