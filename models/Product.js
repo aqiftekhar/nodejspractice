@@ -18,7 +18,7 @@ const getProductsFromFile = callback => {
     })
 };
 
-class Product {
+module.exports = class Product {
     constructor(id, productName, imageUrl, productDescription, productPrice){
         this.id = id,
         this.productName = productName;
@@ -38,7 +38,8 @@ class Product {
             });
         } else{
             this.id=Math.random().toString();
-            products.push(this);
+            //console.log(this);
+            products.push(this); //This object is null
             fs.writeFile(localpath, JSON.stringify(products), (error)=> {
                 console.log(error);
             });
@@ -68,5 +69,3 @@ class Product {
         })
     })
 }
-
-module.exports = Product;
