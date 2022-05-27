@@ -1,7 +1,20 @@
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
-
+//const SequelizeProducts = require('../models/SequelizeProducts');
 exports.getProducts = (req,res,next)=>{
+
+    // SequelizeProducts.findAll()
+    // .then((products) => {
+    //     res.render('shop/product-list', {
+    //         prod : products, 
+    //         pageTitle: 'All Products', 
+    //         urlPath: '/products'
+    //     });
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // });
+
     Product.getAll( products => {
         res.render('shop/product-list', {
             prod : products, 
