@@ -1,6 +1,8 @@
 const { redirect } = require('express/lib/response');
 const Product = require('../models/Product');
 
+// const SequelizeProduct = require('../models/SequelizeProducts');
+
 exports.getAddProducts = (req, res, next)=>{
 
     res.render('admin/edit-product', {
@@ -20,6 +22,18 @@ exports.postAddNewProducts = (req, res, next)=>{
     console.log(imageUrl);
     console.log(productDescription);
     console.log(productPrice);
+
+    // SequelizeProduct.create({
+    //     productName: productName,
+    //     productPrice: productPrice,
+    //     imageUrl: imageUrl,
+    //     productDescription: productDescription
+    // }).then( result => {
+
+    // }).catch(error => {
+
+    // });
+
     const product = new Product(null, productName, imageUrl, productDescription, productPrice);
     product.save();
     res.redirect('/');
