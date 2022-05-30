@@ -51,16 +51,13 @@ exports.postEditProducts = (req, res, next) =>{
     console.log(productId, ' ', updatedProductName);
 }
 exports.getEditProducts = (req, res, next)=>{
-    //console.log('Started getEditProducts');
     const editMode  = req.query.edit;
     if (!editMode) {
-        //console.log('EditMode = ',editMode);
         return redirect('/');
     }
     const prodId = req.params.productId;
-    Product.findProductById(prodId, product => {
-        //console.log(product);
-        //console.log(prodId);
+
+    Product.findByPk(prodId).then(product => {
         if (!product) {
             return redirect('/');
         }
@@ -71,8 +68,9 @@ exports.getEditProducts = (req, res, next)=>{
             editing: editMode,
             product: product
         });
-    })
-
+    }).catch(error => {
+        console.log(error);
+    });
 };
 
 exports.getProducts = (req, res, next) => {
