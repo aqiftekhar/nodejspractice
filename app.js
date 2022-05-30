@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 
-//const mysql = require('./utils/mysqldb');
-//const sequelize = require('./utils/SequelizeDb');
+const sequelize = require('./utils/Sequelizedb');
 
 const adminRoutes = require('./routers/admin');
 const shopRouters = require('./routers/shop');
@@ -30,10 +29,11 @@ app.use(shopRouters);
 app.use(PageNotFoundController.PageNotFound);
 
 //Create Tables/ Sync Database using Sequelize
-// sequelize.sync().then(result => {
-
-// }).catch(error => {
-//     console.log(error);
-// });
+sequelize.sync().then(result => {
+    //console.log(result);
+})
+.catch(error => {
+    console.log(error);
+});
 
 app.listen(3000);

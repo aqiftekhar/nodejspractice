@@ -23,20 +23,18 @@ exports.postAddNewProducts = (req, res, next)=>{
     console.log(productDescription);
     console.log(productPrice);
 
-    // SequelizeProduct.create({
-    //     productName: productName,
-    //     productPrice: productPrice,
-    //     imageUrl: imageUrl,
-    //     productDescription: productDescription
-    // }).then( result => {
-
-    // }).catch(error => {
-
-    // });
-
-    const product = new Product(null, productName, imageUrl, productDescription, productPrice);
-    product.save();
-    res.redirect('/');
+    Product.create({
+        title: productName,
+        price: productPrice,
+        imageUrl : imageUrl,
+        description: productDescription
+    }).then(result => {
+        console.log(result);
+        res.redirect('/');
+    }).catch(error => {
+        console.log(error);
+    });
+    
 }
 exports.postEditProducts = (req, res, next) =>{
     console.log('postEditProducts');
@@ -78,12 +76,15 @@ exports.getEditProducts = (req, res, next)=>{
 };
 
 exports.getProducts = (req, res, next) => {
-    Product.getAll( products => {
+
+    Product.findAll().then(products => {
         res.render('admin/products', {
             prod : products, 
             pageTitle: 'All Products', 
             urlPath: '/admin/products'
         });
+    }).catch(error => {
+        console.log(error);
     });
 }
 

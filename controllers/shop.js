@@ -3,46 +3,42 @@ const Cart = require('../models/Cart');
 //const SequelizeProducts = require('../models/SequelizeProducts');
 exports.getProducts = (req,res,next)=>{
 
-    // SequelizeProducts.findAll()
-    // .then((products) => {
-    //     res.render('shop/product-list', {
-    //         prod : products, 
-    //         pageTitle: 'All Products', 
-    //         urlPath: '/products'
-    //     });
-    // })
-    // .catch(error => {
-    //     console.log(error);
-    // });
-
-    Product.getAll( products => {
+    Product.findAll().then(products => {
         res.render('shop/product-list', {
             prod : products, 
             pageTitle: 'All Products', 
             urlPath: '/products'
         });
+    }).catch(error => {
+        console.log(error);
     });
 }
 
 exports.getProductById = (req, res, next) => {
     const productId = req.params.productId;
-    Product.findProductById(productId, (product) => {
+
+    Product.findByPk(productId).then(product => {
         res.render('shop/product-detail', {
             product: product,
-            pageTitle: product.productName + ' | Details',
+            pageTitle: product.title + ' | Details',
             urlPath: '/products'
 
         })
-    })
+    }).catch(error => {
+        console.log(error);
+    });
 }
 
 exports.getIndex = (req, res, next) => {
-    Product.getAll( products => {
+    Product.findAll().then(products => {
+        console.log(products);
         res.render('shop/index', {
             prod : products, 
             pageTitle: 'Shop', 
             urlPath: '/'
         });
+    }).catch(error => {
+        console.log(error);
     });
 }
 
