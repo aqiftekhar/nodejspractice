@@ -21,17 +21,30 @@ exports.postAddNewProducts = (req, res, next)=>{
     console.log(productDescription);
     console.log(productPrice);
 
-    Product.create({
+    req.user.createProduct({
         title: productName,
         price: productPrice,
         imageUrl : imageUrl,
-        description: productDescription
+        description: productDescription     
     }).then(result => {
         console.log(result);
         res.redirect('/admin/products');
     }).catch(error => {
         console.log(error);
     });
+
+    // Product.create({
+    //     title: productName,
+    //     price: productPrice,
+    //     imageUrl : imageUrl,
+    //     description: productDescription
+    //     //UserId: req.user.id --> One way to add user to Product
+    // }).then(result => {
+    //     console.log(result);
+    //     res.redirect('/admin/products');
+    // }).catch(error => {
+    //     console.log(error);
+    // });
     
 }
 exports.postEditProducts = (req, res, next) =>{
