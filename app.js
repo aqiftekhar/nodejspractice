@@ -9,6 +9,8 @@ const adminRoutes = require('./routers/admin');
 const shopRouters = require('./routers/shop');
 
 const PageNotFoundController = require('./controllers/PageNotFound');
+const Cart = require('./models/Cart');
+const CartItem = require('./models/CartItem');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -42,12 +44,16 @@ app.use(PageNotFoundController.PageNotFound);
 
 Product.belongsTo(User, {constraints : true, OnDelete : 'CASCADE'});
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, {through: CartItem});
+Product.belongsToMany(Cart, {through: CartItem});
 
 //Create Tables/ Sync Database using Sequelize
-// sequelize.sync({force : true}).then(result => {
+ //sequelize.sync({force : true}).then(result => {
     //console.log(result);
-
-sequelize.sync()
+sequelize.sync({force : true})
+//sequelize.sync()
 .then(result => {
     return User.findByPk(1);
 }).then(user => {
