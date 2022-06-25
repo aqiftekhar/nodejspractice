@@ -52,8 +52,8 @@ Product.belongsToMany(Cart, {through: CartItem});
 //Create Tables/ Sync Database using Sequelize
  //sequelize.sync({force : true}).then(result => {
     //console.log(result);
-sequelize.sync({force : true})
-//sequelize.sync()
+//sequelizes.sync({force : true})
+sequelize.sync()
 .then(result => {
     return User.findByPk(1);
 }).then(user => {
@@ -64,7 +64,10 @@ sequelize.sync({force : true})
     }
     return user;
 }).then(user => {
-    console.log(user);
+    //console.log(user);
+ return user.createCart();
+    
+}).then(cart =>{
     app.listen(3000);
 })
 .catch(error => {

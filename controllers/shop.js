@@ -50,22 +50,20 @@ exports.getOrders = (req, res, next) => {
 }
 
 exports.getCart = (req, res, next) => {
-    Cart.getAllCartProducts(cart => {
-        Product.getAll(products => {
-            const cartProducts = [];
-            for (const product of products) {
-                const cartProductData = cart.products.find(prod=>prod.id === product.id);
-                if (cartProductData) {
-                    cartProducts.push({productData: product, quantity: cartProductData.quantity });
-                }
-            }
-            res.render('shop/cart', {
+    req.user.getCart()
+    .then(cart => { 
+        return cart
+        .getProducts()
+        .then(products => {
+                res.render('shop/cart', {
                 urlPath: '/cart',
                 pageTitle: 'Your Car',
-                products: cartProducts
-            });
+                products: products
+            }); 
         })
+        .catch(error => console.log(error));
     })
+    .catch(error => console.log(error));
 
 }
 

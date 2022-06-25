@@ -1,4 +1,4 @@
-const { redirect } = require('express/lib/response');
+// const { redirect } = require('express/lib/response');
 const Product = require('../models/Product');
 
 exports.getAddProducts = (req, res, next)=>{
