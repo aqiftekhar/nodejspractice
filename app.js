@@ -11,6 +11,8 @@ const shopRouters = require('./routers/shop');
 const PageNotFoundController = require('./controllers/PageNotFound');
 const Cart = require('./models/Cart');
 const CartItem = require('./models/CartItem');
+const Order = require('./models/Order');
+const OrderItem = require('./models/OrderItem');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -49,10 +51,15 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product , {through : OrderItem});
+Product.belongsToMany(Order, {through: OrderItem});
+
 //Create Tables/ Sync Database using Sequelize
  //sequelize.sync({force : true}).then(result => {
     //console.log(result);
-//sequelizes.sync({force : true})
+//sequelize.sync({force : true})
 sequelize.sync()
 .then(result => {
     return User.findByPk(1);
