@@ -43,11 +43,46 @@ exports.getIndex = (req, res, next) => {
 }
 
 exports.getOrders = (req, res, next) => {
-    res.render('shop/orders', {
-        urlPath: '/orders',
-        pageTitle: 'Your Ordes'
-    });
+
+    req.user.getOrders( {include : ['Products']} )
+        .then(orders => {
+                res.render('shop/orders', {
+                urlPath: '/orders',
+                pageTitle: 'Your Ordes',
+                orders : orders
+            });
+        })
+        .catch(error => console.log(error));
+    
 }
+exports.postOrders = (req, res, next) => {
+    let fetchCart;
+    req.user
+        .getCart()
+        .then(cart =>  {
+            fetchCart = cart;
+            return cart.getProducts();
+        })
+        .then(products => {
+            return req.user.createOrder()
+                            .then(order=> {
+                                return order.addProducts(
+                                    products.map(product => {
+                                    product.OrderItem = {quantity: product.CartItem.quantity};
+                                    return product;
+                                }));
+                            })
+                            .catch(error=> console.log(error));
+        })
+        .then(result => {
+            return fetchCart.setProducts(null);
+        })
+        .then(result => {
+            res.redirect('/orders');
+        })
+        .catch(error => console.log(error) );
+
+};
 
 exports.getCart = (req, res, next) => {
     req.user.getCart()
