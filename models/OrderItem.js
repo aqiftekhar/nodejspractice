@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = require('../utils/Sequelizedb');
+const sequelize = require('../utils/Mongodb');
 
 const OrderItem = sequelize.define('OrderItem', {
     id: {
